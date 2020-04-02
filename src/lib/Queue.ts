@@ -1,7 +1,8 @@
 import * as Bee from 'bee-queue';
 import redisConfig from '../config/redis';
+import ForgotPasswordMail from '../jobs/ForgotPasswordMail';
 
-const jobs = [];
+const jobs = [ForgotPasswordMail];
 
 class Queue {
   private queues: Bee.QueueSettings

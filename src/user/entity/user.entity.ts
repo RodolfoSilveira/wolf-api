@@ -24,7 +24,7 @@ export class User {
   token: string;
 
   @Column({ type: 'timestamp', nullable: true })
-  token_created_at: number;
+  token_created_at: Date;
 
   @CreateDateColumn({
     type: 'timestamp',
