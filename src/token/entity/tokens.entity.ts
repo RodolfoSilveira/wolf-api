@@ -16,10 +16,10 @@ export class Token {
 
   @ManyToOne(
     type => User,
-    user => user.id,
+    user => user.tokens,
   )
   @JoinColumn({name: "user_id"})
-  user_id: number;
+  user_id: User;
 
   @Column({ type: 'varchar', unique: true })
   token: string;
@@ -31,15 +31,17 @@ export class Token {
   is_revoked: boolean;
 
   @CreateDateColumn({
+    name: 'created_at',
     type: 'timestamp',
     default: () => 'CURRENT_TIMESTAMP(6)',
   })
-  createdAt: number;
+  created_at: number;
 
   @UpdateDateColumn({
+    name: 'updated_at',
     type: 'timestamp',
     default: () => 'CURRENT_TIMESTAMP(6)',
     onUpdate: 'CURRENT_TIMESTAMP(6)',
   })
-  updatedAt: number;
+  updated_at: number;
 }

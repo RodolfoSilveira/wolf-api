@@ -17,52 +17,45 @@ export class File {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ type: "varchar" })
+  @Column({ type: 'varchar' })
   file: string;
 
-  @Column({ type: "varchar" })
+  @Column({ type: 'varchar' })
   name: string;
 
-  @Column({ type: "varchar", nullable: true })
+  @Column({ type: 'varchar', nullable: true })
   type: string;
 
-  @Column({ type: "varchar", nullable: true })
+  @Column({ type: 'varchar', nullable: true })
   subtype: string;
 
-  @OneToOne(
-    type => Company,
-    company => company.id,
-  )
-  @Column({name: "company_id", nullable: true})
-  @JoinColumn({name: "company_id"})
-  company_id: number;
+  @OneToOne(type => Company)
+  @JoinColumn({ name: 'company_id' })
+  company_id: Company;
 
-  @OneToOne(
-    type => User,
-    user => user.id,
-  )
-  @Column({name: "user_id", nullable: true})
-  @JoinColumn({name: "user_id"})
-  user_id: number;
+  @OneToOne(type => User)
+  @JoinColumn({ name: 'user_id' })
+  user_id: User;
 
   @ManyToOne(
     type => Task,
-    task => task.id,
+    task => task.files,
   )
-  @Column({name: "task_id", nullable: true})
-  @JoinColumn({name: "task_id"})
-  task_id: number;
+  @JoinColumn({ name: 'task_id' })
+  task_id: Task;
 
   @CreateDateColumn({
+    name: 'created_at',
     type: 'timestamp',
     default: () => 'CURRENT_TIMESTAMP(6)',
   })
-  createdAt: number;
+  created_at: number;
 
   @UpdateDateColumn({
+    name: 'updated_at',
     type: 'timestamp',
     default: () => 'CURRENT_TIMESTAMP(6)',
     onUpdate: 'CURRENT_TIMESTAMP(6)',
   })
-  updatedAt: number;
+  updated_at: number;
 }

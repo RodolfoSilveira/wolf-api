@@ -4,7 +4,12 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
+  ManyToOne,
+  JoinColumn,
+  OneToMany,
 } from 'typeorm';
+import { Company } from 'src/company/entity/company.entity';
+import { Token } from 'src/token/entity/tokens.entity';
 
 @Entity('users')
 export class User {
@@ -26,16 +31,31 @@ export class User {
   @Column({ type: 'timestamp', nullable: true })
   token_created_at: Date;
 
+  @ManyToOne(
+    type => Company,
+    company => company.users,
+  )
+  @JoinColumn({ name: 'company_id' })
+  company_id: Company;
+
+  @OneToMany(
+    type => Token,
+    token => token,
+  )
+  tokens: Token[];
+
   @CreateDateColumn({
+    name: 'created_at',
     type: 'timestamp',
     default: () => 'CURRENT_TIMESTAMP(6)',
   })
-  createdAt: number;
+  created_at: number;
 
   @UpdateDateColumn({
+    name: 'updated_at',
     type: 'timestamp',
     default: () => 'CURRENT_TIMESTAMP(6)',
     onUpdate: 'CURRENT_TIMESTAMP(6)',
   })
-  updatedAt: number;
+  updated_at: number;
 }

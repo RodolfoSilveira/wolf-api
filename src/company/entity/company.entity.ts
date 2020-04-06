@@ -5,9 +5,13 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   ManyToOne,
-  JoinColumn
+  JoinColumn,
+  OneToMany,
 } from 'typeorm';
 import { User } from '../../user/entity/user.entity';
+import { Address } from '../../address/entity/address.entity';
+import { Phone } from 'src/phone/entity/phone.entity';
+import { Task } from 'src/task/entity/task.entity';
 
 @Entity('companies')
 export class Company {
@@ -23,24 +27,42 @@ export class Company {
   @Column({ type: 'varchar', unique: true })
   cnpj: string;
 
-  @ManyToOne(
+  @OneToMany(
     type => User,
-    user => user.id,
+    user => user,
   )
-  @Column({name: "user_id", nullable: false})
-  @JoinColumn({name: "user_id"})
-  user_id: number;
+  users: User[];
+
+  @OneToMany(
+    type => Address,
+    address => address,
+  )
+  addresses: Address[];
+
+  @OneToMany(
+    type => Phone,
+    phone => phone,
+  )
+  phones: Phone[];
+
+  @OneToMany(
+    type => Task,
+    task => task,
+  )
+  tasks: Task[];
 
   @CreateDateColumn({
+    name: 'created_at',
     type: 'timestamp',
     default: () => 'CURRENT_TIMESTAMP(6)',
   })
-  createdAt: number;
+  created_at: number;
 
   @UpdateDateColumn({
+    name: 'updated_at',
     type: 'timestamp',
     default: () => 'CURRENT_TIMESTAMP(6)',
     onUpdate: 'CURRENT_TIMESTAMP(6)',
   })
-  updatedAt: number;
+  updated_at: number;
 }

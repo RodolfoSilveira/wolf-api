@@ -34,22 +34,23 @@ export class Address {
 
   @ManyToOne(
     type => Company,
-    company => company.id,
+    company => company.addresses,
   )
-  @Column({name: "company_id", nullable: false})
-  @JoinColumn({name: "company_id"})
-  company_id: number;
+  @JoinColumn({ name: 'company_id' })
+  company_id: Company;
 
   @CreateDateColumn({
+    name: 'created_at',
     type: 'timestamp',
     default: () => 'CURRENT_TIMESTAMP(6)',
   })
-  createdAt: number;
+  created_at: number;
 
   @UpdateDateColumn({
+    name: 'updated_at',
     type: 'timestamp',
     default: () => 'CURRENT_TIMESTAMP(6)',
     onUpdate: 'CURRENT_TIMESTAMP(6)',
   })
-  updatedAt: number;
+  updated_at: number;
 }
