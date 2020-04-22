@@ -5,6 +5,7 @@ export interface IUser {
   password: string;
   token?: string;
   token_created_at?: Date;
-  createdAt?: number;
-  updatedAt?: number;
+  company_id?: number;
+  created_at?: Date;
+  updated_at?: Date;
 }
